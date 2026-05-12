@@ -1,0 +1,37 @@
+{
+  "name": "Zahid Hasan",
+  "title": "CS Student, Cyber Security, Cryptanalysis & AI Developer",
+  "bio": "I am a passionate Computer Science student and developer focused on Cyber Security, Cryptanalysis, and AI. I love building secure systems and intelligent applications that solve real-world problems.",
+  "email": "zahid.hasan@example.com",
+  "projects": [
+    {
+      "title": "Sovereign Guard",
+      "description": "A secure social platform utilizing custom RSA, ECC, and SHA-256 implementations for robust cryptographic integrity.",
+      "techStack": ["Python", "Cryptography", "RSA", "ECC", "SHA-256"],
+      "link": "https://github.com/zhnverse/BRRACU-CSE447-Cryptography-and-Cryptanalysis"
+    },
+    {
+      "title": "Diabetes Prediction Model",
+      "description": "Machine learning models including Neural Networks, Logistic Regression, and Decision Trees for predicting diabetes based on clinical data.",
+      "techStack": ["Python", "Scikit-Learn", "Neural Networks", "Data Analysis"],
+      "link": "https://github.com/zhnverse/CSE422-Diabetes-Prediction"
+    },
+    {
+      "title": "Crypto OSINT Toolkit",
+      "description": "A comprehensive toolkit for performing open-source intelligence gathering and cryptanalysis.",
+      "techStack": ["Python", "OSINT", "Security"],
+      "link": "https://github.com/zhnverse/crypto_osint"
+    }
+  ],
+  "skills": [
+    "Cyber Security",
+    "Cryptanalysis",
+    "Machine Learning",
+    "Python",
+    "JavaScript",
+    "React",
+    "Node.js",
+    "OSINT",
+    "Vulnerability Assessment"
+  ]
+}
