@@ -159,9 +159,12 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD,
       },
+      connectionTimeout: 3000, // 3 seconds timeout
+      greetingTimeout: 3000,
+      socketTimeout: 3000
     });
 
-    await transporter.sendMail({
+    transporter.sendMail({
       from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
       to: config.email,
       replyTo: email,
@@ -176,13 +179,14 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
           <p style="background: #f8fafc; padding: 16px; border-radius: 8px;">${message.replace(/\n/g, '<br/>')}</p>
         </div>
       `,
+    }).catch(mailErr => {
+      console.error('Email sending failed (likely blocked by Render Free Tier):', mailErr.message);
     });
-  } catch (mailErr) {
-    console.error('Email error:', mailErr);
-    // Don't fail the whole request — message is already saved to DB
-    return res.status(207).json({ warning: 'Message saved but email delivery failed.' });
+  } catch (err) {
+    console.error('Transporter setup error:', err);
   }
 
+  // Return success immediately to UI since message is safely in DB
   res.json({ success: true, message: 'Message sent successfully!' });
 });
 
