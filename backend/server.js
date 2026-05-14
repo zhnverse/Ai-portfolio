@@ -7,6 +7,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import nodemailer from 'nodemailer';
 import Database from 'better-sqlite3';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 
 dotenv.config();
 
@@ -27,6 +29,34 @@ db.exec(`
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// --- Security Middleware ---
+// 1. Helmet sets secure HTTP headers (protects against XSS, clickjacking, etc.)
+app.use(helmet({
+  contentSecurityPolicy: false, // Disabled to easily allow React inline scripts in dev/prod
+}));
+
+// 2. Global Rate Limiting to prevent brute-force/DDoS attacks
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per 15 mins
+  message: 'Too many requests from this IP, please try again after 15 minutes.'
+});
+app.use(globalLimiter);
+
+// 3. Stricter Rate Limit for Contact Form (prevent email spam)
+const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5, // Limit each IP to 5 contact messages per hour
+  message: { error: 'Too many messages sent. Please wait an hour before sending another.' }
+});
+
+// 4. Stricter Rate Limit for AI Chat (prevent API abuse)
+const chatLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 30, // Limit each IP to 30 AI chat messages per 5 minutes
+  message: { reply: 'Woah there! You are chatting too fast. Please wait a few minutes.' }
+});
 
 app.use(cors());
 app.use(express.json());
@@ -69,7 +99,7 @@ app.get('/api/portfolio-data', (req, res) => {
 });
 
 // API Endpoint for AI Chat
-app.post('/api/chat', async (req, res) => {
+app.post('/api/chat', chatLimiter, async (req, res) => {
   try {
     const { message, history = [] } = req.body;
     
@@ -104,7 +134,7 @@ app.post('/api/chat', async (req, res) => {
 });
 
 // --- Contact Form Endpoint ---
-app.post('/api/contact', async (req, res) => {
+app.post('/api/contact', contactLimiter, async (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
