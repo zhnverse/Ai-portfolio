@@ -38,9 +38,25 @@ const Hero = ({ config, setActiveTab }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <p className="mt-4 text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto">
+          <p className="mt-4 text-xl md:text-2xl text-slate-300 font-medium max-w-3xl mx-auto">
             {config.title}
           </p>
+          <p className="mt-6 text-base md:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            {config.bio}
+          </p>
+          
+          {config.skills && (
+            <div className="mt-8 flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
+              {config.skills.slice(0, 7).map((skill, index) => (
+                <span 
+                  key={index} 
+                  className="px-4 py-1.5 bg-slate-800/50 border border-slate-700 rounded-full text-sm text-blue-300 shadow-sm"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          )}
         </motion.div>
 
         <motion.div
