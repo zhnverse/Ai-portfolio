@@ -5,7 +5,7 @@ import { Groq } from 'groq-sdk';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import Database from 'better-sqlite3';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -150,22 +150,13 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     return res.status(500).json({ error: 'Failed to save message.' });
   }
 
-  // 2. Send email via Gmail
+  // 2. Send email via Resend (HTTP API — works on Render Free Tier)
   try {
     const config = getConfig();
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-      },
-      connectionTimeout: 3000, // 3 seconds timeout
-      greetingTimeout: 3000,
-      socketTimeout: 3000
-    });
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
+    await resend.emails.send({
+      from: 'Portfolio Contact <onboarding@resend.dev>',
       to: config.email,
       replyTo: email,
       subject: `📬 New message from ${name} via Portfolio`,
@@ -179,11 +170,11 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
           <p style="background: #f8fafc; padding: 16px; border-radius: 8px;">${message.replace(/\n/g, '<br/>')}</p>
         </div>
       `,
-    }).catch(mailErr => {
-      console.error('Email sending failed (likely blocked by Render Free Tier):', mailErr.message);
     });
-  } catch (err) {
-    console.error('Transporter setup error:', err);
+  } catch (mailErr) {
+    console.error('Email error:', mailErr);
+    // Message is already saved to DB, so don't fail the request
+    return res.status(207).json({ warning: 'Message saved but email delivery failed.' });
   }
 
   // Return success immediately to UI since message is safely in DB
