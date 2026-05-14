@@ -28,8 +28,15 @@ const Projects = ({ config }) => {
               className="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-brand-light/50 transition-colors group flex flex-col h-full"
             >
               <div className="p-6 flex-grow">
-                <h3 className="text-xl font-bold mb-3 group-hover:text-brand-light transition-colors">
-                  {project.title}
+                <h3 className="text-xl font-bold mb-3 transition-colors">
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-brand-light hover:underline transition-all"
+                  >
+                    {project.title}
+                  </a>
                 </h3>
                 <p className="text-slate-400 mb-6">
                   {project.description}
