@@ -3,11 +3,35 @@ import { motion } from 'framer-motion';
 
 const Contact = ({ config }) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState(null); // null | 'loading' | 'success' | 'error'
+  const [statusMsg, setStatusMsg] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real app, this would send an email or store the message
-    window.location.href = `mailto:${config.email}?subject=Portfolio Contact from ${formData.name}&body=${formData.message}`;
+    setStatus('loading');
+    setStatusMsg('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok || res.status === 207) {
+        setStatus('success');
+        setStatusMsg(data.message || data.warning || 'Message sent!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setStatus('error');
+        setStatusMsg(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setStatus('error');
+      setStatusMsg('Network error. Please check your connection.');
+    }
   };
 
   return (
@@ -23,7 +47,7 @@ const Contact = ({ config }) => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
           <div className="w-20 h-1 bg-brand mx-auto rounded-full"></div>
           <p className="mt-6 text-slate-400">
-            Have a question or want to work together? Leave a message.
+            Have a question or want to work together? Leave a message and I'll get back to you directly.
           </p>
         </motion.div>
 
@@ -73,12 +97,39 @@ const Contact = ({ config }) => {
               placeholder="Your message here..."
             ></textarea>
           </div>
+
+          {/* Status feedback */}
+          {status === 'success' && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 text-sm"
+            >
+              <span>✅</span> {statusMsg}
+            </motion.div>
+          )}
+          {status === 'error' && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm"
+            >
+              <span>❌</span> {statusMsg}
+            </motion.div>
+          )}
+
           <div className="text-center">
             <button
               type="submit"
-              className="px-8 py-3 bg-brand hover:bg-brand-dark text-white rounded-full font-medium transition-colors w-full sm:w-auto"
+              disabled={status === 'loading'}
+              className="px-8 py-3 bg-brand hover:bg-brand-dark text-white rounded-full font-medium transition-colors w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 mx-auto"
             >
-              Send Message
+              {status === 'loading' ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  Sending...
+                </>
+              ) : 'Send Message'}
             </button>
           </div>
         </motion.form>
