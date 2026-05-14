@@ -156,6 +156,48 @@ app.post('/api/contact', async (req, res) => {
   res.json({ success: true, message: 'Message sent successfully!' });
 });
 
+// --- Admin: View All Messages ---
+app.get('/api/messages', (req, res) => {
+  const adminKey = req.query.key;
+  if (adminKey !== process.env.ADMIN_KEY) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  const rows = db.prepare('SELECT * FROM contacts ORDER BY received_at DESC').all();
+  // Return a nicely formatted HTML page
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Contact Messages</title>
+      <style>
+        body { font-family: sans-serif; background: #0f172a; color: #e2e8f0; padding: 2rem; }
+        h1 { color: #818cf8; }
+        .msg { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+        .meta { color: #94a3b8; font-size: 0.85rem; margin-bottom: 0.5rem; }
+        .name { font-weight: bold; font-size: 1.1rem; }
+        .email { color: #60a5fa; }
+        .message { margin-top: 0.75rem; background: #0f172a; padding: 1rem; border-radius: 8px; white-space: pre-wrap; }
+        .count { color: #94a3b8; margin-bottom: 2rem; }
+      </style>
+    </head>
+    <body>
+      <h1>📬 Portfolio Contact Messages</h1>
+      <p class="count">${rows.length} message(s) received</p>
+      ${rows.map(r => `
+        <div class="msg">
+          <div class="meta">#${r.id} &nbsp;·&nbsp; ${r.received_at}</div>
+          <div class="name">${r.name}</div>
+          <div class="email"><a href="mailto:${r.email}" style="color:#60a5fa">${r.email}</a></div>
+          <div class="message">${r.message}</div>
+        </div>
+      `).join('')}
+      ${rows.length === 0 ? '<p>No messages yet.</p>' : ''}
+    </body>
+    </html>
+  `;
+  res.send(html);
+});
+
 // Serve static React frontend in production
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 app.use((req, res) => {
