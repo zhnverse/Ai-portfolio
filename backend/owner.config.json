@@ -26,6 +26,12 @@
       "description": "A machine learning project that predicts diabetes in patients based on clinical features from a 100,000-record dataset, utilizing supervised and unsupervised learning techniques.",
       "techStack": ["Python", "Machine Learning", "Jupyter Notebook", "Data Analysis"],
       "link": "https://github.com/zhnverse/CSE422-Diabetes-ML-Project"
+    },
+    {
+      "title": "AI Chatbot Widget",
+      "description": "A full-stack, plug-and-play AI chatbot widget for businesses featuring a floating bubble, unread badges, typing indicators, and full message history.",
+      "techStack": ["React", "Tailwind CSS", "Node.js", "Express", "Groq AI API"],
+      "link": "https://github.com/zhnverse/Ai-Chatbot-Widget"
     }
   ],
   "skills": [
