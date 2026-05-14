@@ -83,7 +83,7 @@ function App() {
             className="font-bold text-xl tracking-tighter cursor-pointer"
             onClick={() => setActiveTab('home')}
           >
-            {config.name.split(' ')[0]}<span className="text-brand">.</span>
+            {config.name.toUpperCase().startsWith('MD ') ? config.name.split(' ')[1] : config.name.split(' ')[0]}<span className="text-brand">.</span>
           </div>
           <div className="hidden md:flex gap-6 text-sm font-medium items-center">
             <NavLink tab="home" label="Home" />
