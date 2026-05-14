@@ -100,7 +100,7 @@ function App() {
       </main>
 
       <footer className="py-8 text-center text-slate-500 border-t border-slate-800">
-        <p>© {new Date().getFullYear()} {config.name}. Built with AI & React.</p>
+        <p>© {new Date().getFullYear()} {config.name}</p>
       </footer>
 
       <ChatWidget />
