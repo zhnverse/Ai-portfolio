@@ -62,5 +62,13 @@ The application is deployed as a unified Web Service on **Render**.
 *   The Express backend serves both the `/api` routes and the static compiled frontend from the `/dist` folder.
 *   Environment variables are securely injected via the Render Dashboard.
 
-## 7. Conclusion
+## 7. Screenshots
+
+### Desktop View
+![Desktop Dashboard](hero_desktop.png)
+
+### Mobile View
+![Mobile Responsive](hero_mobile.png)
+
+## 8. Conclusion
 This project successfully bridges the gap between front-end aesthetics, back-end reliability, and artificial intelligence. By integrating a custom LLM assistant and applying stringent cybersecurity principles, the portfolio serves not only as a digital resume but as a practical, live demonstration of full-stack engineering capabilities.
