@@ -11,6 +11,13 @@
   "languages": ["Bengali (Native)", "English (Professional Working Proficiency)", "Chinese (Beginner)"],
   "education": [
     {
+      "exam": "BSc in Computer Science",
+      "year": "Class of 2026",
+      "board": "BRACU",
+      "result": "Ongoing",
+      "institution": "BRAC University"
+    },
+    {
       "exam": "HSC",
       "year": "2019",
       "board": "Dinajpur",
