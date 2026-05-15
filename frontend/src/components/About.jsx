@@ -29,6 +29,7 @@ const About = ({ config }) => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-400">
               {config.location && <p><strong className="text-white">Location:</strong> {config.location}</p>}
+              {config.dob && <p><strong className="text-white">Date of Birth:</strong> {config.dob}</p>}
               {config.mobile && <p><strong className="text-white">Mobile:</strong> {config.mobile}</p>}
               {config.email && <p><strong className="text-white">Email:</strong> <a href={`mailto:${config.email}`} className="text-brand hover:underline">{config.email}</a></p>}
               {config.github && <p><strong className="text-white">GitHub:</strong> <a href={config.github} target="_blank" rel="noreferrer" className="text-brand hover:underline">{config.github.replace('https://', '')}</a></p>}
