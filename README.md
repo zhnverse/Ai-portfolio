@@ -1,5 +1,7 @@
 # Full-Stack AI-Powered Personal Portfolio
 
+**Live Demo:** [https://ai-portfolio-klrz.onrender.com/](https://ai-portfolio-klrz.onrender.com/)
+
 This is a modern, dark-themed personal portfolio website powered by React, Tailwind CSS v4, Framer Motion, Node.js, Express, and the Groq AI API.
 
 ## Features
