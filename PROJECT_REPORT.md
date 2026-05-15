@@ -64,11 +64,14 @@ The application is deployed as a unified Web Service on **Render**.
 
 ## 7. Screenshots
 
-### Desktop View
-![Desktop Dashboard](hero_desktop.png)
+### Home / Hero Page
+![Home Section](ss_home.png)
 
-### Mobile View
-![Mobile Responsive](hero_mobile.png)
+### Featured Projects
+![Projects Section](ss_projects.png)
+
+### Contact Form
+![Contact Section](ss_contact.png)
 
 ## 8. Conclusion
 This project successfully bridges the gap between front-end aesthetics, back-end reliability, and artificial intelligence. By integrating a custom LLM assistant and applying stringent cybersecurity principles, the portfolio serves not only as a digital resume but as a practical, live demonstration of full-stack engineering capabilities.
