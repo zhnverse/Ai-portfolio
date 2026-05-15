@@ -32,7 +32,7 @@ const Education = ({ config }) => {
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
                   <div>
                     <h3 className="text-2xl font-bold text-white mb-2">
-                      {edu.exam} Examination
+                      {edu.exam}
                     </h3>
                     <h4 className="text-lg text-brand font-medium mb-2">
                       {edu.institution}
