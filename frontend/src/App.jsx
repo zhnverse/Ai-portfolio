@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Hero from './components/Hero';
 import About from './components/About';
+import Education from './components/Education';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
@@ -61,6 +62,7 @@ function App() {
     switch(activeTab) {
       case 'home': return <Hero config={config} setActiveTab={setActiveTab} />;
       case 'about': return <About config={config} />;
+      case 'education': return <Education config={config} />;
       case 'projects': return <Projects config={config} />;
       case 'skills': return <Skills config={config} />;
       case 'contact': return <Contact config={config} />;
@@ -93,6 +95,7 @@ function App() {
           <div className="hidden md:flex gap-6 text-sm font-medium items-center">
             <NavLink tab="home" label="Home" />
             <NavLink tab="about" label="About" />
+            <NavLink tab="education" label="Education" />
             <NavLink tab="projects" label="Projects" />
             <NavLink tab="skills" label="Skills" />
             <NavLink tab="contact" label="Contact" />
@@ -120,6 +123,7 @@ function App() {
               <div className="px-4 pt-2 pb-6 flex flex-col gap-4 text-base font-medium items-start">
                 <NavLink tab="home" label="Home" />
                 <NavLink tab="about" label="About" />
+                <NavLink tab="education" label="Education" />
                 <NavLink tab="projects" label="Projects" />
                 <NavLink tab="skills" label="Skills" />
                 <NavLink tab="contact" label="Contact" />
