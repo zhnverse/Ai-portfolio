@@ -35,6 +35,21 @@ const About = ({ config }) => {
               {config.linkedin && <p><strong className="text-white">LinkedIn:</strong> <a href={config.linkedin} target="_blank" rel="noreferrer" className="text-brand hover:underline">{config.linkedin.replace('https://', '')}</a></p>}
               {config.languages && config.languages.length > 0 && <p className="col-span-1 md:col-span-2"><strong className="text-white">Languages:</strong> {config.languages.join(', ')}</p>}
             </div>
+
+            {config.education && config.education.length > 0 && (
+              <div className="mt-8 pt-8 border-t border-slate-700/50 text-left">
+                <h3 className="text-xl font-semibold text-white mb-4">Education</h3>
+                <div className="space-y-4">
+                  {config.education.map((edu, idx) => (
+                    <div key={idx} className="bg-slate-900/50 p-4 rounded-lg border border-slate-700/50">
+                      <h4 className="text-brand font-medium text-lg">{edu.exam} Examination ({edu.year})</h4>
+                      <p className="text-slate-300 mt-1">{edu.institution}</p>
+                      <p className="text-slate-400 text-sm mt-1">Board: <span className="text-slate-300">{edu.board}</span> | Result: <span className="text-slate-300">{edu.result}</span></p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </motion.div>
         </div>
       </div>

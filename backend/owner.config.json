@@ -8,6 +8,22 @@
   "github": "https://github.com/zhnverse",
   "linkedin": "https://linkedin.com/in/zahid-hasan-nerob-42b1b2254",
   "languages": ["Bengali (Native)", "English (Professional Working Proficiency)", "Chinese (Beginner)"],
+  "education": [
+    {
+      "exam": "HSC",
+      "year": "2019",
+      "board": "Dinajpur",
+      "result": "GPA 5",
+      "institution": "Cantonment public School And College, Saidpur"
+    },
+    {
+      "exam": "SSC",
+      "year": "2017",
+      "board": "Dinajpur",
+      "result": "GPA 5",
+      "institution": "Cantonment public School And College, Saidpur"
+    }
+  ],
   "projects": [
     {
       "title": "AI-Powered Personal Portfolio",
