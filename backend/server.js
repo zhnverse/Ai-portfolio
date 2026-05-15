@@ -82,7 +82,12 @@ const getConfig = () => {
 const generateSystemPrompt = (config) => {
   return `You are the AI assistant for a personal portfolio website owned by ${config.name}. 
 Their title is: ${config.title}.
+Date of Birth: ${config.dob || "Not specified"}
+Location: ${config.location || "Not specified"}
+Languages: ${config.languages ? config.languages.join(", ") : "Not specified"}
 Bio: ${config.bio}
+Education:
+${config.education ? config.education.map(e => `- ${e.exam} (${e.year}) at ${e.institution}. Board: ${e.board}, Result: ${e.result}`).join("\n") : ""}
 Skills: ${config.skills ? config.skills.join(", ") : ""}
 Projects:
 ${config.projects ? config.projects.map(p => `- ${p.title}: ${p.description} (Tech: ${p.techStack.join(", ")})`).join("\n") : ""}
