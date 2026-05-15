@@ -37,12 +37,16 @@ const Education = ({ config }) => {
                     <h4 className="text-lg text-brand font-medium mb-2">
                       {edu.institution}
                     </h4>
-                    <p className="text-slate-300">
-                      Board: <span className="text-white font-medium">{edu.board}</span>
-                    </p>
-                    <p className="text-slate-300">
-                      Result: <span className="text-white font-medium">{edu.result}</span>
-                    </p>
+                    {edu.board && (
+                      <p className="text-slate-300">
+                        Board: <span className="text-white font-medium">{edu.board}</span>
+                      </p>
+                    )}
+                    {edu.result && (
+                      <p className="text-slate-300">
+                        Result: <span className="text-white font-medium">{edu.result}</span>
+                      </p>
+                    )}
                   </div>
                   <div className="bg-brand/20 text-brand px-4 py-2 rounded-full font-bold self-start shrink-0">
                     {edu.year}
