@@ -5,13 +5,15 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import ChatWidget from './components/ChatWidget';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 function App() {
   const [config, setConfig] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -68,7 +70,10 @@ function App() {
 
   const NavLink = ({ tab, label }) => (
     <button 
-      onClick={() => setActiveTab(tab)} 
+      onClick={() => {
+        setActiveTab(tab);
+        setIsMobileMenuOpen(false);
+      }} 
       className={`transition-colors ${activeTab === tab ? 'text-brand border-b-2 border-brand pb-1' : 'hover:text-brand'}`}
     >
       {label}
@@ -92,7 +97,36 @@ function App() {
             <NavLink tab="skills" label="Skills" />
             <NavLink tab="contact" label="Contact" />
           </div>
+          
+          <div className="md:hidden flex items-center">
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-slate-300 hover:text-white"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-slate-900 border-b border-slate-800"
+            >
+              <div className="px-4 pt-2 pb-6 flex flex-col gap-4 text-base font-medium items-start">
+                <NavLink tab="home" label="Home" />
+                <NavLink tab="about" label="About" />
+                <NavLink tab="projects" label="Projects" />
+                <NavLink tab="skills" label="Skills" />
+                <NavLink tab="contact" label="Contact" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <main className="flex-grow pt-16">
