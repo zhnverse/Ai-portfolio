@@ -172,12 +172,11 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
       `,
     });
   } catch (mailErr) {
-    console.error('Email error:', mailErr);
-    // Message is already saved to DB, so don't fail the request
-    return res.status(207).json({ warning: 'Message saved but email delivery failed.' });
+    console.error('Email error (message still saved to DB):', mailErr.message || mailErr);
+    // Message is already safely saved to DB — don't expose email errors to the user
   }
 
-  // Return success immediately to UI since message is safely in DB
+  // Always return success since message is safely in DB
   res.json({ success: true, message: 'Message sent successfully!' });
 });
 

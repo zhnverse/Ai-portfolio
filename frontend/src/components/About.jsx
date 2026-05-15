@@ -29,10 +29,10 @@ const About = ({ config }) => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-400">
               {config.location && <p><strong className="text-white">Location:</strong> {config.location}</p>}
-              {config.mobile && <p><strong className="text-white">Mobile:</strong> {config.mobile}</p>}
-              {config.email && <p><strong className="text-white">Email:</strong> <a href={`mailto:${config.email}`} className="text-brand hover:underline">{config.email}</a></p>}
-              {config.github && <p><strong className="text-white">GitHub:</strong> <a href={config.github} target="_blank" rel="noreferrer" className="text-brand hover:underline">{config.github.replace('https://', '')}</a></p>}
-              {config.linkedin && <p><strong className="text-white">LinkedIn:</strong> <a href={config.linkedin} target="_blank" rel="noreferrer" className="text-brand hover:underline">{config.linkedin.replace('https://', '')}</a></p>}
+              {config.mobile && <p><strong className="text-white">Mobile:</strong> <span className="blur-sm select-none">{config.mobile}</span></p>}
+              {config.email && <p><strong className="text-white">Email:</strong> <span className="blur-sm select-none">{config.email}</span></p>}
+              {config.github && <p><strong className="text-white">GitHub:</strong> <span className="blur-sm select-none">{config.github.replace('https://', '')}</span></p>}
+              {config.linkedin && <p><strong className="text-white">LinkedIn:</strong> <span className="blur-sm select-none">{config.linkedin.replace('https://', '')}</span></p>}
               {config.languages && config.languages.length > 0 && <p className="col-span-1 md:col-span-2"><strong className="text-white">Languages:</strong> {config.languages.join(', ')}</p>}
             </div>
           </motion.div>
